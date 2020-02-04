@@ -1406,6 +1406,8 @@ Dataset operator/(const DatasetConstProxy &a, const T value) {
   return a / makeVariable<T>(Values{value});
 }
 
+SCIPP_CORE_EXPORT DataArray astype(const DataConstProxy &var, const DType type);
+
 SCIPP_CORE_EXPORT DataArray histogram(const DataConstProxy &sparse,
                                       const Variable &binEdges);
 SCIPP_CORE_EXPORT DataArray histogram(const DataConstProxy &sparse,
@@ -1443,6 +1445,8 @@ SCIPP_CORE_EXPORT DataArray resize(const DataConstProxy &a, const Dim dim,
                                    const scipp::index size);
 SCIPP_CORE_EXPORT Dataset resize(const DatasetConstProxy &d, const Dim dim,
                                  const scipp::index size);
+
+[[nodiscard]] SCIPP_CORE_EXPORT DataArray reciprocal(const DataConstProxy &a);
 
 SCIPP_CORE_EXPORT VariableConstProxy same(const VariableConstProxy &a,
                                           const VariableConstProxy &b);

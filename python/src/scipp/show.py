@@ -105,9 +105,10 @@ class VariableDrawer():
         max_extent = _cubes_in_full_width // 2
         for dim in self._target_dims:
             if dim in d:
-                e.append(min(d[dim], max_extent))
-            elif dim in dims:
-                e.append(self._sparse_flag)
+                if d[dim] is None:
+                    e.append(self._sparse_flag)
+                else:
+                    e.append(min(d[dim], max_extent))
             else:
                 e.append(1)
         return [1] * (3 - len(e)) + e
@@ -270,13 +271,13 @@ class VariableDrawer():
                 for name, mask in self._variable.masks:
                     if label.sparse_dim is not None:
                         items.append(
-                            (name, mask.values, config.colors['mask']))
+                            (name, mask.values, config.colors['masks']))
                 sparse_dim = self._variable.sparse_dim
                 for dim in self._variable.coords:
                     if dim == sparse_dim:
                         items.append((str(sparse_dim),
                                       self._variable.coords[sparse_dim].values,
-                                      config.colors['coord']))
+                                      config.colors['coords']))
 
         for i, (name, data, color) in enumerate(items):
             svg += '<g>'
@@ -389,7 +390,7 @@ class DatasetDrawer():
                 else:
                     area_xy.append(item)
 
-        for what, items in zip(['coord', 'labels', 'mask', 'attr'], [
+        for what, items in zip(['coords', 'labels', 'masks', 'attrs'], [
                 self._dataset.coords, self._dataset.labels,
                 self._dataset.masks, self._dataset.attrs
         ]):
