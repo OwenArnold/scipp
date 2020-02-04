@@ -27,7 +27,7 @@ install:
 - ps: $env:pr_count=($env:pr | select-string -pattern "origin/pull/*").length
 - ps: Write-Output $env:pr_count 
 # Would ideally cancel build rather than erroring
-- ps: if ($env:pr_count -lt 1){throw 'No Pr associated. Build Cancelled.'}
+#- ps: if ($env:pr_count -lt 1){throw 'No Pr associated. Build Cancelled.'}
 
 before_build:
 - echo install started %time%
